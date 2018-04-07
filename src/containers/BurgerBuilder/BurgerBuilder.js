@@ -53,6 +53,13 @@ class BurgerBuilder extends Component {
     removeIngredientHandler = (type) => {
         // get old count of type of ingredient
         const oldCount = this.state.ingredients[type];
+
+        // Is the burger empty ?
+        if (oldCount <= 0){
+            // nothing should happen when removing ingredient
+            return;
+        }
+
         // increment count
         const updatedCount = oldCount - 1;
         // create copy of current state
@@ -72,12 +79,22 @@ class BurgerBuilder extends Component {
     }
 
     render(){
+        const disabledInfo = {
+            ...this.state.ingredients
+        };
+
+        // to disable control button based on ingredient count
+        for (let key in disabledInfo) {
+            disabledInfo[key] = disabledInfo[key] <= 0
+        }
+        
         return (
             <Aux>
                 <Burger ingredients={this.state.ingredients} />   
                 <BuildControls 
                     ingredientAdded={this.addIngredientHandler}
-                    ingredientRemoved={this.removeIngredientHandler} />
+                    ingredientRemoved={this.removeIngredientHandler}
+                    disabled={disabledInfo} />
             </Aux>
         );
     }

@@ -12,7 +12,7 @@ const controls = [
     {label: 'Bacon', type: ig.BACON}
 ];
 
-const BuildControls = ({ ingredientAdded, ingredientRemoved }) => {
+const BuildControls = ({ ingredientAdded, ingredientRemoved, disabled }) => {
     return (
         <div className={classes.BuildControls}>
             {controls.map( (control, idx) => {
@@ -21,7 +21,8 @@ const BuildControls = ({ ingredientAdded, ingredientRemoved }) => {
                     <BuildControl 
                         label={control.label}
                         added={() => ingredientAdded(control.type)}
-                        removed={() => ingredientRemoved(control.type)}/>
+                        removed={() => ingredientRemoved(control.type)}
+                        disabled={disabled[control.type]}/>
                 </div>
             );
             })}
