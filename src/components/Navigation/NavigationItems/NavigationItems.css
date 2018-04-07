@@ -4,8 +4,16 @@
     list-style: none;
     /* to align list items next to each over */
     display: flex;
+    flex-flow: column;
     /* vertically centered */
     align-items: center;
     height: 100%;
     box-sizing: border-box;
+}
+
+@media (min-width: 500px) {
+    .NavigationItems {
+        flex-flow: row;
+
+    }  
 }

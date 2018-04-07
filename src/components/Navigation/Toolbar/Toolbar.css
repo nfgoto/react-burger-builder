@@ -18,3 +18,14 @@
 .Toolbar nav {
     height: 100%;
 }
+
+/* Logo on big devices */
+.Logo {
+    height: 80%;
+}
+
+@media (max-width: 499px) {
+    .DesktopOnly {
+        display: none;
+    }
+}
