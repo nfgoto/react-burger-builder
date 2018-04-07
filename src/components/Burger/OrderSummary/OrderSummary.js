@@ -1,8 +1,9 @@
 import React from "react";
 
 import Aux from "../../../hoc/Aux";
+import Button from "../../../components/UI/Button/Button";
 
-const OrderSummary = ({ ingredients, totalPrice }) => {
+const OrderSummary = ({ ingredients, totalPrice, purchaseContinued, purchaseCancelled }) => {
 
     const ingredientsSummary = Object.entries(ingredients);
 
@@ -20,7 +21,10 @@ const OrderSummary = ({ ingredients, totalPrice }) => {
                     })
                 }
             </ul>
-            <p>Price : {totalPrice.toFixed(2)}</p>
+            <p><strong>Price : {totalPrice.toFixed(2)}</strong></p>
+            <p>Continue To Checkout ?</p>
+            <Button btnType="Success" clicked={purchaseContinued}>CONTINUE</Button>
+            <Button btnType="Danger" clicked={purchaseCancelled}>CANCEL</Button>
         </Aux>
     );
 }

@@ -62,6 +62,7 @@ class BurgerBuilder extends Component {
             totalPrice: updatedPrice
         });
 
+        // pass the most recent state to avoid delays
         this.updatePurchaseState(updatedIngredients);
     }
     
@@ -95,6 +96,10 @@ class BurgerBuilder extends Component {
         })
     }
 
+    onPurchaseContinueHandler = () => {
+        alert("Let's continue !");
+    }
+
     onPurchaseCancelHandler = () => {
         this.setState({
             purchasing: false
@@ -115,7 +120,9 @@ class BurgerBuilder extends Component {
             <Aux>
                 <Modal show={this.state.purchasing} modalClosed={this.onPurchaseCancelHandler}>
                     <OrderSummary   ingredients={this.state.ingredients}
-                                    totalPrice={this.state.totalPrice} />
+                                    totalPrice={this.state.totalPrice}
+                                    purchaseContinued={this.onPurchaseContinueHandler}
+                                    purchaseCancelled={this.onPurchaseCancelHandler} />
                 </Modal>
                 <Burger ingredients={this.state.ingredients} />   
                 <BuildControls 
