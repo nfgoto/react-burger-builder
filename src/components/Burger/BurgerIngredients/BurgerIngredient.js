@@ -2,23 +2,19 @@ import React, { Component } from "react";
 import PropTypes from "prop-types";
 
 import classes from "./BurgerIngredient.css";
+import igType from "./ingredientTypes";
 
 class BurgerIngredient extends Component {
-  constructor(props) {
-    super(props);
-
-  }
-
   render() {
     // to get value of ingredient
     let ingredient = null;
 
     switch (this.props.type) {
-      case "bread-bottom":
+      case igType.BREAD_BOTTOM:
         ingredient = <div className={classes.BreadBottom} />;
         break;
 
-      case "bread-top":
+      case igType.BREAD_TOP:
         ingredient = (
           <div className={classes.BreadTop}>
             <div className={classes.Seeds1} />
@@ -27,19 +23,19 @@ class BurgerIngredient extends Component {
         );
         break;
 
-      case "meat":
+      case igType.MEAT:
         ingredient = <div className={classes.Meat} />;
         break;
 
-      case "cheese":
+      case igType.CHEESE:
         ingredient = <div className={classes.Cheese} />;
         break;
 
-      case "salad":
+      case igType.SALAD:
         ingredient = <div className={classes.Salad} />;
         break;
 
-      case "bacon":
+      case igType.BACON:
         ingredient = <div className={classes.Bacon} />;
         break;
 
