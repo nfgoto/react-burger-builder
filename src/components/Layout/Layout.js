@@ -7,19 +7,22 @@ import SideDrawer from "../Navigation/SideDrawer/SideDrawer";
 
 class Layout extends Component {
     state = {
-        showSideDrawer: true
+        showSideDrawer: false
     }
 
     sideDrawerHandler = () => {
-        this.setState({
-            showSideDrawer: false
+        // do NOT this.state inside setState because it is async method: unpredictable outcome
+        // instead use a function that takes previous state as input and returns the object to merge into the state
+        // CLEAN WAY of setting the state when it depends on the older state
+        this.setState((previousState) =>{
+            return {showSideDrawer: !previousState.showSideDrawer}
         });
     }
 
     render(){
         return (
             <Aux>
-                <Toolbar />
+                <Toolbar drawerToggleClicked={this.sideDrawerHandler} />
                 <SideDrawer open={this.state.showSideDrawer} 
                             closed={this.sideDrawerHandler}/>
                 <main className={classes.Content}>
