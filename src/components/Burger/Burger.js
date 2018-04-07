@@ -1,6 +1,6 @@
 import React from "react";
 
-import BurgerIngredient from "./BurgerIngredients/BurgerIngredient";
+import BurgerIngredient from "./BurgerIngredient/BurgerIngredient";
 import classes from "./Burger.css";
 
 const Burger = ({ ingredients }) => {
@@ -18,7 +18,7 @@ const Burger = ({ ingredients }) => {
         // get the total number of ingredients based on the length of the flattenned array
         // instead of adding length of sub array for each ingredient
         .reduce((acc, igArr) => {
-        return [...acc, ...igArr];
+            return [...acc, ...igArr];
         }, []);
 
     if (transformedIngredients.length === 0) {

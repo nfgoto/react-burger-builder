@@ -3,7 +3,7 @@ import React, { Component } from 'react';
 import Aux from "../../hoc/Aux";
 import Burger from "../../components/Burger/Burger";
 import BuildControls from "../../components/Burger/BuildControls/BuildControls";
-import igType from "../../components/Burger/BurgerIngredients/ingredientTypes";
+import igType from "../../components/Burger/BurgerIngredient/ingredientTypes";
 import Modal from "../../components/UI/Modal/Modal";
 import OrderSummary from "../../components/Burger/OrderSummary/OrderSummary";
 
@@ -38,7 +38,6 @@ class BurgerBuilder extends Component {
         const ingredientsCount = Object.values(updatedIngredients).reduce((acc, count) => {
             return acc += count;
         }, 0);
-        console.log(ingredientsCount)
         this.setState({ purchaseable: (ingredientsCount > 0) });
     }
 
