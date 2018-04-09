@@ -37,9 +37,13 @@ const BuildControls = ({
           </div>
         );
       })}
-    <button className={classes.OrderButton} 
-            disabled={!purchaseable}
-            onClick={ordered}>ORDER NOW</button>
+      <button
+        className={classes.OrderButton}
+        disabled={!purchaseable}
+        onClick={ordered}
+      >
+        ORDER NOW
+      </button>
     </div>
   );
 };
