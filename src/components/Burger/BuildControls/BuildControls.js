@@ -2,7 +2,7 @@ import React from "react";
 
 import classes from "./BuildControls.css";
 import BuildControl from "./BuildControl/BuildControl";
-import ig from "../BurgerIngredients/ingredientTypes";
+import ig from "../BurgerIngredient/ingredientTypes";
 
 // types need to match the ones in burger ingredient
 const controls = [
