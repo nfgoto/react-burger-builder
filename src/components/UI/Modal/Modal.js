@@ -8,7 +8,8 @@ class Modal extends Component{
     shouldComponentUpdate(nextProps, nextState){
         // to avoid unecessary rerendering
         // Update the modal when it is shown (when click on order)
-        return nextProps.show !== this.props.show;
+        // OR update modal when children change
+        return nextProps.show !== this.props.show || nextProps.children !== this.props.children;
     }
 
     render(){
