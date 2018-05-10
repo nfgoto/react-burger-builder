@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+//import { Redirect } from "react-router-dom";
 
 import Aux from "../../hoc/Aux/Aux";
 import Burger from "../../components/Burger/Burger";
@@ -110,33 +111,24 @@ class BurgerBuilder extends Component {
   };
 
   onPurchaseContinueHandler = () => {
-    //alert("Let's continue !");
-    this.setState({ loading: true });
+    const queryParams = Object.keys(this.state.ingredients).map(igr => {
+      return `${encodeURIComponent(igr)}=${encodeURIComponent(
+        this.state.ingredients[igr]
+      )}`;
+    });
+    /*  for (let igred in this.state.ingredients) {
+      // use encodeURIComponent to have URL compliant string
+      queryParams.push(`${encodeURIComponent(igred)}=${encodeURIComponent(this.state.ingredients[igred])}`)
+    }
+    
+    */
 
-    const order = {
-      ingredients: this.state.ingredients,
-      price: this.state.totalPrice,
-      customer: {
-        name: "Florian GOTO",
-        address: {
-          street: "test street",
-          zipCode: "65432",
-          country: "France"
-        },
-        email: "testmail@test.co",
-        deliveryMethod: "fastest"
-      }
-    };
+    queryParams.push(`price=${this.state.totalPrice}`)
+    const queryString = queryParams.join("&");
 
-    // contacting firebase, firebase routes end with .json
-    axios
-      .post("/orders.json", order)
-      .then(response => {
-        this.setState({ loading: false, purchasing: false });
-      })
-      .catch(error => {
-        this.setState({ loading: false, purchasing: false });
-      });
+    const { history } = this.props;
+    // pass ingredients in the URL with search prop
+    history.push({ pathname: "/checkout", search: `?${queryString}` });
   };
 
   onPurchaseCancelHandler = () => {
