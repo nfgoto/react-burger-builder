@@ -4,13 +4,19 @@ import classes from "./Input.css";
 
 const Input = props => {
   let inputElement = null;
+  const inputClasses = [
+    classes.InputElement,
+    props.shouldValidate && props.touched && props.invalid
+      ? classes.Invalid
+      : ""
+  ].join(" ");
 
   switch (props.elementType) {
     case "input":
       // distribute the wanted props on the input via destructuring of props object
       inputElement = (
         <input
-          className={classes.InputElement}
+          className={inputClasses}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
@@ -20,8 +26,11 @@ const Input = props => {
     case "select":
       // distribute the wanted props on the input via destructuring of props object
       inputElement = (
-        <select className={classes.InputElement} value={props.value}
-        onChange={props.changed}>
+        <select
+          className={inputClasses}
+          value={props.value}
+          onChange={props.changed}
+        >
           {props.elementConfig.options.map(option => {
             return (
               <option key={option.value} value={option.value}>
@@ -35,7 +44,7 @@ const Input = props => {
     case "textarea":
       inputElement = (
         <textarea
-          className={classes.InputElement}
+          className={inputClasses}
           {...props.elementConfig}
           value={props.value}
           onChange={props.changed}
