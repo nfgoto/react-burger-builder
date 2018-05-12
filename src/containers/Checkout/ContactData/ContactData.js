@@ -99,10 +99,6 @@ class ContactData extends Component {
     loading: false
   };
 
-  componentDidMount() {
-    console.log(this.state.orderForm);
-  }
-
   checkValidity = (value = "", rules) => {
     // set to true by default to have cumulative effect for all rules they must ALL by valid to return true
     let isValid = true;

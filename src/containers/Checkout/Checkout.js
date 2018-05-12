@@ -28,7 +28,7 @@ class Checkout extends Component {
           (ingredients[param[0]] = Number(param[1])) // or +param[1] -> number
         : (totalPrice = param[1]);
     }
-    console.log("Ingredients =", ingredients, " - Totalprice= ", totalPrice);
+
     this.setState({ ingredients, totalPrice });
   }
 
