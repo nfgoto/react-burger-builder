@@ -1,4 +1,6 @@
 import React, { Component } from "react";
+import { connect } from "react-redux";
+
 
 import classes from "./ContactData.css";
 import Button from "../../../components/UI/Button/Button";
@@ -114,12 +116,10 @@ class ContactData extends Component {
     }
 
     if (rules.minLength) {
-      // add && isValid to make sure that all field validations add up together, otherwise only the last will prevail
       isValid = value.length >= rules.minLength && isValid;
     }
 
     if (rules.maxLength) {
-      // add && isValid to make sure that all field validations add up together, otherwise only the last will prevail
       isValid = value.length <= rules.maxLength && isValid;
     }
 
@@ -129,8 +129,6 @@ class ContactData extends Component {
   handleOrder = event => {
     event.stopPropagation();
     //event.preventDafault();
-    // const { location } = this.props;
-    //alert("Let's continue !");
 
     this.setState({ loading: true });
 
@@ -142,7 +140,7 @@ class ContactData extends Component {
     }
 
     const order = {
-      ingredients: this.props.ingredients,
+      ingredients: this.props.ings,
       price: this.props.totalPrice,
       orderData: formData
     };
@@ -245,4 +243,11 @@ class ContactData extends Component {
   }
 }
 
-export default ContactData;
+const mapStateToProps = state => {
+  return {
+    ings: state.ingredients,
+    price: state.totalPrice
+  };
+};
+
+export default connect(mapStateToProps)(ContactData);
