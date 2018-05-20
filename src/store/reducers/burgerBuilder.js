@@ -1,6 +1,6 @@
-import * as actionTypes from "./actions";
+import * as actionTypes from "../actions/actionTypes";
 
-import igType from "../components/Burger/BurgerIngredient/ingredientTypes";
+import igType from "../../components/Burger/BurgerIngredient/ingredientTypes";
 
 const INGREDIENT_PRICES = {
     [igType.SALAD]: 0.5,
@@ -10,24 +10,33 @@ const INGREDIENT_PRICES = {
   };
 
 const initialState = {
-  ingredients: {
-    salad: 0,
-    cheese: 0,
-    meat: 0,
-    bacon: 0
-  },
-  totalPrice: 10
+  ingredients: null,
+  totalPrice: 10,
+  error: false
 };
 
 const reducer = (state = initialState, action) => {
   switch (action.type) {
+    case actionTypes.SET_INGREDIENTS:
+      return{
+        ...state,
+        ingredients: action.ingredients,
+        totalPrice:10,
+        // in case there were an error previously
+        error: false
+      };
+    case actionTypes.FETCH_INGREDIENTS_FAILED:
+      return{
+        ...state,
+        error: true
+      };
     case actionTypes.ADD_INGREDIENT:
       // this is how to create a DEEP CLONE of an object
       return {
         ...state,
         ingredients: {
           ...state.ingredients,
-          [action.ingredientName]: ++state.ingredients[action.ingredientName]
+          [action.ingredientName]: state.ingredients[action.ingredientName] + 1
         },
         totalPrice: state.totalPrice + INGREDIENT_PRICES[action.ingredientName]
       };

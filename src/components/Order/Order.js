@@ -12,7 +12,7 @@ const Order = ({ ingredients, price }) => {
   }
 
   const ingredientOutput = orderIngredients.map(ig => (
-    <span style={{
+    <span key={ig.name} style={{
         textTransform: 'capitalize',
         display: 'inline-block',
         margin: '0 8px',
