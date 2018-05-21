@@ -7,49 +7,11 @@ import axios from "../../../axios-orders.js";
 import Spinner from "../../../components/UI/Spinner/Spinner";
 import Input from "../../../components/UI/Input/Input";
 import * as actions from "../../../store/actions/";
+import { fieldBuilder } from "../../helper";
 
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
-const fieldBuilder = ({
-  elementType = "",
-  type = "",
-  autoComplete = "",
-  placeholder = "",
-  value = "",
-  options = [{ value: "", displayValue: "" }],
-  validation = null,
-  valid = false,
-  touched = false
-}) => {
-  let elementConfig = null;
 
-  switch (elementType) {
-    case "input":
-      elementConfig = {
-        type,
-        autoComplete,
-        placeholder
-      };
-      break;
-
-    case "select":
-      elementConfig = {
-        options
-      };
-      break;
-
-    default:
-      break;
-  }
-  return {
-    elementType,
-    elementConfig,
-    value,
-    validation,
-    valid,
-    touched
-  };
-};
 
 class ContactData extends Component {
   state = {
