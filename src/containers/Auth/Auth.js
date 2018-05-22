@@ -86,6 +86,13 @@ class Auth extends Component {
     this.setState({ controls: updatedControls, formIsValid });
   };
 
+  submitHandler = event => {
+    event.preventDefault();
+    const { email, password } = this.state.controls;
+    const { onAuth } = this.props;
+    onAuth(email.value, password.value);
+  };
+
   render() {
     const formElementsArray = [];
 
@@ -113,7 +120,7 @@ class Auth extends Component {
     });
     return (
       <div>
-        <form className={classes.Auth}>
+        <form className={classes.Auth} onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success" disabled={!this.state.formIsValid}>
             SIGNIN
@@ -126,7 +133,7 @@ class Auth extends Component {
 
 const mapStateToProps = state => ({});
 const mapDispatchToProps = dispatch => ({
-  onAuth: dispatch(actions.auth())
+  onAuth: (email, password) => dispatch(actions.auth(email, password))
 });
 
 export default connect(mapStateToProps, mapDispatchToProps)(Auth);
