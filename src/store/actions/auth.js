@@ -3,7 +3,47 @@ import * as firebase from "firebase";
 
 import * as actionTypes from "./actionTypes";
 
-const toto = ["A", "I", "z", "a", "S", "y", "D", "R", "a", "l", "t", "Y", "o", "Q", "6", "V", "c", "h", "d", "y", "D", "r", "g", "X", "O", "z", "9", "K", "h", "F", "l", "m", "1", "M", "O", "K", "W", "L", "c"];
+const toto = [
+  "A",
+  "I",
+  "z",
+  "a",
+  "S",
+  "y",
+  "D",
+  "R",
+  "a",
+  "l",
+  "t",
+  "Y",
+  "o",
+  "Q",
+  "6",
+  "V",
+  "c",
+  "h",
+  "d",
+  "y",
+  "D",
+  "r",
+  "g",
+  "X",
+  "O",
+  "z",
+  "9",
+  "K",
+  "h",
+  "F",
+  "l",
+  "m",
+  "1",
+  "M",
+  "O",
+  "K",
+  "W",
+  "L",
+  "c"
+];
 
 export const authStart = () => {
   return {
@@ -22,10 +62,11 @@ export const authFail = error => {
   return {
     type: actionTypes.AUTH_FAIL,
     error
-  };    
+  };
 };
 
 export const auth = (email, password) => {
+  console.log('TO REMOVE');
   return async dispatch => {
     dispatch(authStart());
     const authData = {
@@ -38,7 +79,9 @@ export const auth = (email, password) => {
     */
     try {
       const { data } = await axios.post(
-        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${toto.join('')}`,
+        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${toto.join(
+          ""
+        )}`,
         authData
       );
       dispatch(authSucces(data));
