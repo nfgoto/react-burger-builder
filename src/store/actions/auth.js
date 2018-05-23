@@ -1,7 +1,6 @@
 import axios from "axios";
 import * as firebase from "firebase";
 
-
 import * as actionTypes from "./actionTypes";
 
 const toto = ["A", "I", "z", "a", "S", "y", "D", "R", "a", "l", "t", "Y", "o", "Q", "6", "V", "c", "h", "d", "y", "D", "r", "g", "X", "O", "z", "9", "K", "h", "F", "l", "m", "1", "M", "O", "K", "W", "L", "c"];
