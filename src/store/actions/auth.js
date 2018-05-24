@@ -45,6 +45,18 @@ const toto = [
   "c"
 ];
 
+const config = {
+  apiKey: `${toto.join("")}`,
+  authDomain: "react-burger-builder.firebaseapp.com",
+  databaseURL: "https://react-burger-builder.firebaseio.com",
+  storageBucket: "<BUCKET>.appspot.com",
+};
+firebase.initializeApp(config);
+
+
+
+
+
 export const authStart = () => {
   return {
     type: actionTypes.AUTH_START
@@ -69,23 +81,21 @@ export const auth = (email, password) => {
   console.log('TO REMOVE');
   return async dispatch => {
     dispatch(authStart());
-    const authData = {
-      token: `${email}${password}`,
-      returnSecureToken: true
-    };
     /*
         See https://firebase.google.com/docs/web/setup
         for how to implement Oauth
     */
     try {
-      const { data } = await axios.post(
-        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/verifyCustomToken?key=${toto.join(
-          ""
-        )}`,
-        authData
-      );
-      dispatch(authSucces(data));
+      const req = await firebase.auth().createUserWithEmailAndPassword(email, password);
+     console.log('[SIGNIN REQUEST]', req);
+   
+      //dispatch(authSucces(data));
+    
     } catch (error) {
+      // Handle Errors here.
+      var errorCode = error.code;
+      var errorMessage = error.message;
+      // ...
       console.error(`[ERROR AUTH] ${error.message}`);
       dispatch(authFail(error));
     }
