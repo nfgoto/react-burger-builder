@@ -1,5 +1,5 @@
 import axios from "axios";
-import * as firebase from "firebase";
+//import * as firebase from "firebase";
 
 import * as actionTypes from "./actionTypes";
 
@@ -44,18 +44,16 @@ const toto = [
   "L",
   "c"
 ];
-
+/* 
 const config = {
   apiKey: `${toto.join("")}`,
-  authDomain: "react-burger-builder.firebaseapp.com",
-  databaseURL: "https://react-burger-builder.firebaseio.com",
-  storageBucket: "<BUCKET>.appspot.com",
+  authDomain: "react-burger-builder-cce1e.firebaseapp.com",
+  databaseURL: "https://react-burger-builder-cce1e.firebaseio.com",
+  projectId: "react-burger-builder-cce1e",
+  storageBucket: "react-burger-builder-cce1e.appspot.com",
+  messagingSenderId: "128712198554"
 };
-firebase.initializeApp(config);
-
-
-
-
+firebase.initializeApp(config); */
 
 export const authStart = () => {
   return {
@@ -78,7 +76,7 @@ export const authFail = error => {
 };
 
 export const auth = (email, password) => {
-  console.log('TO REMOVE');
+  console.log("TO REMOVE");
   return async dispatch => {
     dispatch(authStart());
     /*
@@ -86,15 +84,26 @@ export const auth = (email, password) => {
         for how to implement Oauth
     */
     try {
-      const req = await firebase.auth().createUserWithEmailAndPassword(email, password);
-     console.log('[SIGNIN REQUEST]', req);
-   
-      //dispatch(authSucces(data));
-    
+      /*       const data = await firebase
+        .auth()
+        .createUserWithEmailAndPassword(email, password); */
+      const userData = {
+        email,
+        password,
+        returnSecureToken: true
+      };
+      const { data } = axios.post(
+        `https://www.googleapis.com/identitytoolkit/v3/relyingparty/signupNewUser?key=${toto.join(
+          ""
+        )}`,
+        userData
+      );
+
+      dispatch(authSucces(data));
     } catch (error) {
       // Handle Errors here.
-      var errorCode = error.code;
-      var errorMessage = error.message;
+      /*       var errorCode = error.code;
+      var errorMessage = error.message; */
       // ...
       console.error(`[ERROR AUTH] ${error.message}`);
       dispatch(authFail(error));

@@ -119,13 +119,14 @@ class Auth extends Component {
       );
     });
     return (
-      <div>
-        <form className={classes.Auth} onSubmit={this.submitHandler}>
+      <div className={classes.Auth}>
+        <form onSubmit={this.submitHandler}>
           {form}
           <Button btnType="Success" disabled={!this.state.formIsValid}>
             SIGNIN
           </Button>
         </form>
+        <Button btnType="Danger">SWITCH TO LOGIN</Button> 
       </div>
     );
   }
