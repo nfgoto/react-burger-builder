@@ -11,13 +11,15 @@ import App from "./App";
 import registerServiceWorker from "./registerServiceWorker";
 import burgerBuilderReducer from "./store/reducers/burgerBuilder";
 import orderReducer from "./store/reducers/orders";
+import authReducer from "./store/reducers/auth";
 
 // COMPOSE allow us to compose our own sets of middleware & enhancers, just like combineReducers allow us to combine reducers in one
 const composeEnhancers = window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose;
 
 const rootReducer = combineReducers({
-  burgerBuilderReducer,
-  orderReducer
+  burgerBuilder: burgerBuilderReducer,
+  order: orderReducer,
+  auth: authReducer
 });
 
 const store = createStore(

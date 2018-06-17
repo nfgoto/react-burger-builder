@@ -22,7 +22,8 @@ class BurgerBuilder extends Component {
     // because we fetch data from the server that the UI depends on
     // we need to verify that the data was fetch before render elements depending on that data
     // for example, show a spinner while the data is being fetched
-    this.props.onInitIngredient();
+    const { onInitIngredient } = this.props;
+    onInitIngredient();
   }
 
   updatePurchaseState = updatedIngredients => {
@@ -33,15 +34,19 @@ class BurgerBuilder extends Component {
     return sum > 0;
   };
 
-  onPurchaseHandler = () => {
-    this.setState({
-      purchasing: true
-    });
+  purchaseHandler = () => {
+    if (this.props.isAuthenticated) {
+      return this.setState({
+        purchasing: true
+      });
+    }
+    this.props.onSetAuthRedirectPath("/checkout");
+    this.props.history.push("/auth");
   };
 
   purchaseContinueHandler = () => {
     const { history } = this.props;
-    
+
     this.props.onInitPurchase();
     history.push("/checkout");
   };
@@ -81,7 +86,8 @@ class BurgerBuilder extends Component {
             disabled={disabledInfo}
             price={this.props.price}
             purchaseable={this.updatePurchaseState(this.props.ings)}
-            ordered={this.onPurchaseHandler}
+            ordered={this.purchaseHandler}
+            isAuth={this.props.isAuthenticated}
           />
         </Aux>
       );
@@ -112,9 +118,10 @@ class BurgerBuilder extends Component {
 
 const mapStateToProps = state => {
   return {
-    ings: state.burgerBuilderReducer.ingredients,
-    price: state.burgerBuilderReducer.totalPrice,
-    error: state.burgerBuilderReducer.error
+    ings: state.burgerBuilder.ingredients,
+    price: state.burgerBuilder.totalPrice,
+    error: state.burgerBuilder.error,
+    isAuthenticated: state.auth.token !== null
   };
 };
 
@@ -125,10 +132,12 @@ const mapDispatchToProps = dispatch => {
     onIngredientRemove: ingredientName =>
       dispatch(actions.removeIngredient(ingredientName)),
     onInitIngredient: () => dispatch(actions.initIngredient()),
-    onInitPurchase: () => dispatch(actions.purchaseInit())
+    onInitPurchase: () => dispatch(actions.purchaseInit()),
+    onSetAuthRedirectPath: path => dispatch(actions.setAuthRedirectPath(path))
   };
 };
 
-export default connect(mapStateToProps, mapDispatchToProps)(
-  withErrorHandler(BurgerBuilder, axios)
-);
+export default connect(
+  mapStateToProps,
+  mapDispatchToProps
+)(withErrorHandler(BurgerBuilder, axios));

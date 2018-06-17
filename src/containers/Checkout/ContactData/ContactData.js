@@ -11,8 +11,6 @@ import { fieldBuilder } from "../../helper";
 
 import withErrorHandler from "../../../hoc/withErrorHandler/withErrorHandler";
 
-
-
 class ContactData extends Component {
   state = {
     orderForm: {
@@ -92,7 +90,7 @@ class ContactData extends Component {
 
   handleOrder = event => {
     event.preventDefault(); //event.stopPropagation();
-
+    const { onOrderBurger, token, userId } = this.props;
     let formData = {};
     for (let formElementIdentifier in this.state.orderForm) {
       formData[formElementIdentifier] = this.state.orderForm[
@@ -103,10 +101,11 @@ class ContactData extends Component {
     const order = {
       ingredients: this.props.ings,
       price: this.props.price,
-      orderData: formData
+      orderData: formData,
+      userId
     };
 
-    this.props.onOrderBurger(order);
+    onOrderBurger(order, token);
   };
 
   handleChange = (event, inputIdentifier) => {
@@ -195,19 +194,18 @@ class ContactData extends Component {
   }
 }
 
-const mapStateToProps = state => {
-  return {
-    ings: state.burgerBuilderReducer.ingredients,
-    price: state.burgerBuilderReducer.totalPrice,
-    loading: state.orderReducer.loading
-  };
-};
+const mapStateToProps = state => ({
+  ings: state.burgerBuilder.ingredients,
+  price: state.burgerBuilder.totalPrice,
+  loading: state.order.loading,
+  token: state.auth.token,
+  userId: state.auth.userId,
+});
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onOrderBurger: orderData => dispatch(actions.purchaseBurger(orderData))
-  };
-};
+const mapDispatchToProps = dispatch => ({
+  onOrderBurger: (orderData, token) =>
+    dispatch(actions.purchaseBurger(orderData, token))
+});
 
 export default connect(mapStateToProps, mapDispatchToProps)(
   withErrorHandler(ContactData, axios)
